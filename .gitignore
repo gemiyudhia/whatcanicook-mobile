@@ -41,3 +41,39 @@ example
 # generated native folders
 /ios
 /android
+
+# ---------- Secrets and environment ----------
+.env
+.env.*
+!.env.example
+
+# ---------- OS / editor ----------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# ---------- Node / Expo / React Native ----------
+node_modules/
+.expo/
+.expo-shared/
+dist/
+web-build/
+expo-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+
+# Signing keys and certificates
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# ---------- Local data ----------
+*.log
+tmp/
