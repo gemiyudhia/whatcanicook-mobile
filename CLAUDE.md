@@ -38,8 +38,11 @@ The documentation is NOT in this repository. It is in `whatcanicook-api/docs/`. 
 - Use Expo Router for navigation.
 - Validate forms with React Hook Form and Zod when forms are added.
 - Tests use Jest via `jest-expo` and React Native Testing Library (approved in the Milestone 1 plan).
-- Styling with NativeWind is deferred to Milestone 2.
+- Styling with NativeWind is being added in a dedicated task right after the base app (Task 5b). Until it lands, use `StyleSheet`.
+- Screens live in `src/app/` (Expo Router). Never put test files there: every file in that folder becomes a route. Tests go in `__tests__/`.
+- Tests use `@testing-library/react-native` v14: `render` and `fireEvent` are async, so always `await` them.
 - Do not upgrade major versions without checking compatibility and running the tests.
+- TypeScript 6 does not auto-include `@types/*` packages. Ambient types such as Jest must be listed in `compilerOptions.types` in `tsconfig.json`.
 
 ## Workflow
 
@@ -49,4 +52,12 @@ Commit messages use conventional commits, for example `feat(mobile): add API cli
 
 ## Current status
 
-Milestone 1 (Project Foundation) is in progress. The Expo app is not initialized yet. Commands will be listed here as each task lands.
+Milestone 1 (Project Foundation) is in progress. The Expo app (SDK 57) runs in Expo Go with a single home screen. The shared API client and the connectivity check are added in Task 6.
+
+Commands (run from the repository root):
+
+- Start the dev server: `npx expo start` (open with Expo Go)
+- Type check: `npm run typecheck`
+- Lint: `npm run lint`
+- Format check: `npm run format:check` (fix with `npm run format`)
+- Tests: `npm test`

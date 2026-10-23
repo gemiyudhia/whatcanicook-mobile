@@ -21,4 +21,20 @@ React Native, Expo, TypeScript, Expo Router, TanStack Query.
 
 ## Local Setup
 
-Setup instructions will be added when the Expo app is initialized.
+Requirements: Node.js (LTS) and the Expo Go app on your phone. The phone and the computer must be on the same Wi-Fi network.
+
+```bash
+npm install
+npx expo start
+```
+
+Scan the QR code with Expo Go. If the phone cannot connect, try `npx expo start --tunnel`.
+
+### Checks
+
+```bash
+npm run typecheck
+npm run lint
+npm run format:check
+npm test
+```
