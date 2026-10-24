@@ -43,6 +43,8 @@ The documentation is NOT in this repository. It is in `whatcanicook-api/docs/`. 
 - Tests use `@testing-library/react-native` v14: `render` and `fireEvent` are async, so always `await` them.
 - Do not upgrade major versions without checking compatibility and running the tests.
 - TypeScript 6 does not auto-include `@types/*` packages. Ambient types such as Jest must be listed in `compilerOptions.types` in `tsconfig.json`.
+- The API base URL comes from `EXPO_PUBLIC_API_URL` (see `.env.example`). `EXPO_PUBLIC_*` values are bundled into the app, so never put secrets in them. Restart Expo with `--clear` after changing `.env`.
+- Component tests mock `src/lib/api` and never touch the network.
 
 ## Workflow
 
@@ -52,11 +54,11 @@ Commit messages use conventional commits, for example `feat(mobile): add API cli
 
 ## Current status
 
-Milestone 1 (Project Foundation) is in progress. The Expo app (SDK 57) runs in Expo Go with a single home screen. The shared API client and the connectivity check are added in Task 6.
+Milestone 1 (Project Foundation) is in progress. Tasks 1 to 6 are done: repository setup, Expo app with NativeWind v4, and the shared API client with a connectivity check against the API health endpoint. CI is added in Task 7.
 
 Commands (run from the repository root):
 
-- Start the dev server: `npx expo start` (open with Expo Go)
+- Start the dev server: `npx expo start --clear` (open with Expo Go; the API must be reachable from the phone)
 - Type check: `npm run typecheck`
 - Lint: `npm run lint`
 - Format check: `npm run format:check` (fix with `npm run format`)

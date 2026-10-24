@@ -28,6 +28,12 @@ npm install
 npx expo start
 ```
 
+### Configuration
+
+Copy `.env.example` to `.env` and set `EXPO_PUBLIC_API_URL` to the address of the API **as seen from your phone**, for example `http://192.168.1.10:8080`. `localhost` will not work, because it points to the phone itself. Find your computer's address with `ipconfig` (IPv4 address of the Wi-Fi adapter).
+
+The API must be running (see the `whatcanicook-api` repository) and reachable from the phone. Restart the dev server with `npx expo start --clear` after changing `.env`.
+
 Scan the QR code with Expo Go. If the phone cannot connect, try `npx expo start --tunnel`.
 
 ### Checks
