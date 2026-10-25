@@ -52,14 +52,14 @@ Plan, then wait for approval, then implement one vertical slice, then verify, th
 
 Commit messages use conventional commits, for example `feat(mobile): add API client and connectivity check screen`.
 
+Branches: work happens on short-lived feature branches that are merged into `dev`. `master` receives `dev` only when it is ready. CI runs on pushes and pull requests to both.
+
 ## Current status
 
-Milestone 1 (Project Foundation) is in progress. Tasks 1 to 6 are done: repository setup, Expo app with NativeWind v4, and the shared API client with a connectivity check against the API health endpoint. CI is added in Task 7.
+Milestone 1 (Project Foundation) is nearly done: Expo app (SDK 57) with NativeWind v4, shared API client with a connectivity check against the API health endpoint, and GitHub Actions CI.
 
 Commands (run from the repository root):
 
 - Start the dev server: `npx expo start --clear` (open with Expo Go; the API must be reachable from the phone)
-- Type check: `npm run typecheck`
-- Lint: `npm run lint`
-- Format check: `npm run format:check` (fix with `npm run format`)
-- Tests: `npm test`
+- Checks before pushing: `npm run format:check`, `npm run typecheck`, `npm run lint`, `npm test` (CI runs the same four)
+- Fix formatting: `npm run format`

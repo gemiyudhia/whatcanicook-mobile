@@ -1,5 +1,7 @@
 # WhatCanICook Mobile
 
+[![CI](https://github.com/gemiyudhia/whatcanicook-mobile/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/gemiyudhia/whatcanicook-mobile/actions/workflows/ci.yml)
+
 React Native (Expo) app for WhatCanICook, a recipe discovery and community app that helps people cook with ingredients they already have.
 
 The backend API and all project documentation live in the separate `whatcanicook-api` repository.
@@ -44,3 +46,9 @@ npm run lint
 npm run format:check
 npm test
 ```
+
+## Continuous Integration
+
+GitHub Actions (`.github/workflows/ci.yml`) runs on every push and pull request to `dev` and `master`: dependency install with `npm ci`, Prettier check, TypeScript check, ESLint, and Jest tests. These are the same commands as the local checks above, so run them before pushing.
+
+`npm ci` requires `package-lock.json` to be committed and in sync with `package.json`. Use npm only (no yarn or pnpm) so the lockfile stays consistent.
