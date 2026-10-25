@@ -38,8 +38,13 @@ The documentation is NOT in this repository. It is in `whatcanicook-api/docs/`. 
 - Use Expo Router for navigation.
 - Validate forms with React Hook Form and Zod when forms are added.
 - Tests use Jest via `jest-expo` and React Native Testing Library (approved in the Milestone 1 plan).
-- Styling with NativeWind is deferred to Milestone 2.
+- Styling with NativeWind is being added in a dedicated task right after the base app (Task 5b). Until it lands, use `StyleSheet`.
+- Screens live in `src/app/` (Expo Router). Never put test files there: every file in that folder becomes a route. Tests go in `__tests__/`.
+- Tests use `@testing-library/react-native` v14: `render` and `fireEvent` are async, so always `await` them.
 - Do not upgrade major versions without checking compatibility and running the tests.
+- TypeScript 6 does not auto-include `@types/*` packages. Ambient types such as Jest must be listed in `compilerOptions.types` in `tsconfig.json`.
+- The API base URL comes from `EXPO_PUBLIC_API_URL` (see `.env.example`). `EXPO_PUBLIC_*` values are bundled into the app, so never put secrets in them. Restart Expo with `--clear` after changing `.env`.
+- Component tests mock `src/lib/api` and never touch the network.
 
 ## Workflow
 
@@ -47,6 +52,14 @@ Plan, then wait for approval, then implement one vertical slice, then verify, th
 
 Commit messages use conventional commits, for example `feat(mobile): add API client and connectivity check screen`.
 
+Branches: work happens on short-lived feature branches that are merged into `dev`. `master` receives `dev` only when it is ready. CI runs on pushes and pull requests to both.
+
 ## Current status
 
-Milestone 1 (Project Foundation) is in progress. The Expo app is not initialized yet. Commands will be listed here as each task lands.
+Milestone 1 (Project Foundation) is nearly done: Expo app (SDK 57) with NativeWind v4, shared API client with a connectivity check against the API health endpoint, and GitHub Actions CI.
+
+Commands (run from the repository root):
+
+- Start the dev server: `npx expo start --clear` (open with Expo Go; the API must be reachable from the phone)
+- Checks before pushing: `npm run format:check`, `npm run typecheck`, `npm run lint`, `npm test` (CI runs the same four)
+- Fix formatting: `npm run format`

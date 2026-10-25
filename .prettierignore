@@ -1,0 +1,9 @@
+node_modules
+.expo
+dist
+coverage
+example
+.claude
+AGENTS.md
+LICENSE
+package-lock.json
