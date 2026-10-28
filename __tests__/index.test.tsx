@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
-import HomeScreen from '../src/app/index';
+import HomeScreen from '../src/app/(tabs)/index';
 import { getHealth } from '../src/lib/api';
 
 jest.mock('../src/lib/api');
