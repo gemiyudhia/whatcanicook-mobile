@@ -4,14 +4,18 @@ import { ColorValue } from 'react-native';
 
 type IkonProps = { color: ColorValue; size: number; focused: boolean };
 
-const ikon =
-  (
-    aktif: keyof typeof Ionicons.glyphMap,
-    nonaktif: keyof typeof Ionicons.glyphMap,
-  ) =>
-  ({ color, size, focused }: IkonProps) => (
-    <Ionicons name={focused ? aktif : nonaktif} size={size} color={color} />
-  );
+const ikon = (
+  aktif: keyof typeof Ionicons.glyphMap,
+  nonaktif: keyof typeof Ionicons.glyphMap,
+) => {
+  function IkonTab({ color, size, focused }: IkonProps) {
+    return (
+      <Ionicons name={focused ? aktif : nonaktif} size={size} color={color} />
+    );
+  }
+
+  return IkonTab;
+};
 
 export default function TabsLayout() {
   return (
