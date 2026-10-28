@@ -1,70 +1,33 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 
-import HomeScreen from '../src/app/index';
-import { getHealth } from '../src/lib/api';
+import BerandaScreen from '../src/app/(tabs)/index';
 
-jest.mock('../src/lib/api');
+describe('BerandaScreen', () => {
+  it('shows the greeting and the tagline', async () => {
+    await render(<BerandaScreen />);
 
-const mockedGetHealth = jest.mocked(getHealth);
-
-async function renderHome() {
-  const client = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-
-  await render(
-    <QueryClientProvider client={client}>
-      <HomeScreen />
-    </QueryClientProvider>,
-  );
-}
-
-describe('HomeScreen', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
-  it('shows the title, tagline and a loading state while connecting', async () => {
-    mockedGetHealth.mockReturnValue(new Promise(() => {}));
-
-    await renderHome();
-
-    expect(screen.getByText('WhatCanICook')).toBeOnTheScreen();
     expect(
-      screen.getByText('Cook with what you already have.'),
+      screen.getByText('Apa yang ingin kamu masak hari ini?'),
     ).toBeOnTheScreen();
-    expect(screen.getByText('Connecting to API...')).toBeOnTheScreen();
+    expect(
+      screen.getByText(
+        'Temukan ide lezat dari bahan yang sudah tersedia rapi di dapurmu.',
+      ),
+    ).toBeOnTheScreen();
   });
 
-  it('shows a success message when the API responds', async () => {
-    mockedGetHealth.mockResolvedValue({ status: 'ok' });
+  it('shows the pantry card with its ingredients', async () => {
+    await render(<BerandaScreen />);
 
-    await renderHome();
-
-    expect(await screen.findByText('API connected')).toBeOnTheScreen();
+    expect(screen.getByText('Pantry Tersedia')).toBeOnTheScreen();
+    expect(screen.getByText('Telur (4 butir)')).toBeOnTheScreen();
+    expect(screen.getByText('Resep Cocok (12)')).toBeOnTheScreen();
   });
 
-  it('shows an error and a retry button when the API is unreachable', async () => {
-    mockedGetHealth.mockRejectedValue(new Error('Cannot reach the server.'));
+  it('lists the recommended recipes', async () => {
+    await render(<BerandaScreen />);
 
-    await renderHome();
-
-    expect(await screen.findByText('Cannot connect to API')).toBeOnTheScreen();
-    expect(screen.getByText('Cannot reach the server.')).toBeOnTheScreen();
-    expect(screen.getByText('Try again')).toBeOnTheScreen();
-  });
-
-  it('recovers when the user retries', async () => {
-    mockedGetHealth
-      .mockRejectedValueOnce(new Error('Cannot reach the server.'))
-      .mockResolvedValueOnce({ status: 'ok' });
-
-    await renderHome();
-    await screen.findByText('Cannot connect to API');
-
-    await fireEvent.press(screen.getByText('Try again'));
-
-    expect(await screen.findByText('API connected')).toBeOnTheScreen();
+    expect(screen.getByText('Tumis Kangkung Tempe Gurih')).toBeOnTheScreen();
+    expect(screen.getByText('100% Cocok (Semua bahan ada)')).toBeOnTheScreen();
   });
 });
