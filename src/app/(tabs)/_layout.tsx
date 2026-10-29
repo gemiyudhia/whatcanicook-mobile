@@ -2,19 +2,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import { ColorValue } from 'react-native';
 
-type IkonProps = { color: ColorValue; size: number; focused: boolean };
+type IconProps = { color: ColorValue; size: number; focused: boolean };
 
-const ikon = (
+const tabIcon = (
   aktif: keyof typeof Ionicons.glyphMap,
   nonaktif: keyof typeof Ionicons.glyphMap,
 ) => {
-  function IkonTab({ color, size, focused }: IkonProps) {
+  function IconTab({ color, size, focused }: IconProps) {
     return (
       <Ionicons name={focused ? aktif : nonaktif} size={size} color={color} />
     );
   }
 
-  return IkonTab;
+  return IconTab;
 };
 
 export default function TabsLayout() {
@@ -37,27 +37,30 @@ export default function TabsLayout() {
     >
       <Tabs.Screen
         name="index"
-        options={{ title: 'Beranda', tabBarIcon: ikon('home', 'home-outline') }}
+        options={{
+          title: 'Beranda',
+          tabBarIcon: tabIcon('home', 'home-outline'),
+        }}
       />
       <Tabs.Screen
-        name="bahan"
+        name="pantry"
         options={{
           title: 'Bahan',
-          tabBarIcon: ikon('basket', 'basket-outline'),
+          tabBarIcon: tabIcon('basket', 'basket-outline'),
         }}
       />
       <Tabs.Screen
-        name="tersimpan"
+        name="saved"
         options={{
           title: 'Tersimpan',
-          tabBarIcon: ikon('bookmark', 'bookmark-outline'),
+          tabBarIcon: tabIcon('bookmark', 'bookmark-outline'),
         }}
       />
       <Tabs.Screen
-        name="profil"
+        name="profile"
         options={{
           title: 'Profil',
-          tabBarIcon: ikon('person', 'person-outline'),
+          tabBarIcon: tabIcon('person', 'person-outline'),
         }}
       />
     </Tabs>

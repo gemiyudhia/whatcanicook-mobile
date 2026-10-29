@@ -1,15 +1,15 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
-import BahanScreen from '../src/app/(tabs)/bahan';
+import PantryScreen from '../src/app/(tabs)/pantry';
 
-const PLACEHOLDER = 'Cari bahan, misalnya kentang atau potato';
+const SEARCH_PLACEHOLDER = 'Cari bahan, misalnya kentang atau potato';
 
-describe('BahanScreen', () => {
+describe('PantryScreen', () => {
   it('finds an ingredient by its English name', async () => {
-    await render(<BahanScreen />);
+    await render(<PantryScreen />);
 
     await fireEvent.changeText(
-      screen.getByPlaceholderText(PLACEHOLDER),
+      screen.getByPlaceholderText(SEARCH_PLACEHOLDER),
       'garlic',
     );
 
@@ -18,15 +18,18 @@ describe('BahanScreen', () => {
   });
 
   it('shows an empty message when nothing matches', async () => {
-    await render(<BahanScreen />);
+    await render(<PantryScreen />);
 
-    await fireEvent.changeText(screen.getByPlaceholderText(PLACEHOLDER), 'zzz');
+    await fireEvent.changeText(
+      screen.getByPlaceholderText(SEARCH_PLACEHOLDER),
+      'zzz',
+    );
 
     expect(screen.getByText('Bahan tidak ditemukan.')).toBeOnTheScreen();
   });
 
   it('filters the list by category', async () => {
-    await render(<BahanScreen />);
+    await render(<PantryScreen />);
 
     await fireEvent.press(screen.getByText('Protein & Nabati (2)'));
 
@@ -35,7 +38,7 @@ describe('BahanScreen', () => {
   });
 
   it('changes the quantity with the plus and minus buttons', async () => {
-    await render(<BahanScreen />);
+    await render(<PantryScreen />);
 
     expect(screen.getByText('6 siung')).toBeOnTheScreen();
 
@@ -48,7 +51,7 @@ describe('BahanScreen', () => {
   });
 
   it('does not let the quantity drop below one step', async () => {
-    await render(<BahanScreen />);
+    await render(<PantryScreen />);
 
     await fireEvent.press(screen.getByLabelText('Kurangi Tempe'));
 
@@ -56,7 +59,7 @@ describe('BahanScreen', () => {
   });
 
   it('removes an ingredient and updates the stock count', async () => {
-    await render(<BahanScreen />);
+    await render(<PantryScreen />);
 
     await fireEvent.press(screen.getByLabelText('Hapus Bawang Putih'));
 

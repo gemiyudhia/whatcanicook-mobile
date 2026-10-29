@@ -3,16 +3,16 @@ import { Pressable, Text, View } from 'react-native';
 
 type Props = {
   items: string[];
-  totalResep: number;
-  onKelola?: () => void;
-  onCariResep?: () => void;
+  totalRecipes: number;
+  onManage?: () => void;
+  onFindRecipes?: () => void;
 };
 
 export function PantryCard({
   items,
-  totalResep,
-  onKelola,
-  onCariResep,
+  totalRecipes,
+  onManage,
+  onFindRecipes,
 }: Props) {
   return (
     <View className="rounded-2xl border border-oatmeal bg-card p-4">
@@ -29,7 +29,7 @@ export function PantryCard({
           </Text>
         </View>
         <View
-          className="rounded-full bg-secondary-container px-3 py-1"
+          className="rounded-full px-3 py-1"
           style={{ backgroundColor: '#DAE3C8' }}
         >
           <Text className="font-body-semibold text-xs text-primary">
@@ -38,6 +38,7 @@ export function PantryCard({
         </View>
       </View>
 
+      {/* flex-wrap: chip turun ke baris berikutnya kalau tidak muat */}
       <View className="mt-4 flex-row flex-wrap gap-2">
         {items.map((item) => (
           <View
@@ -51,7 +52,7 @@ export function PantryCard({
 
       <View className="mt-4 flex-row gap-3">
         <Pressable
-          onPress={onKelola}
+          onPress={onManage}
           className="flex-1 items-center rounded-xl bg-oatmeal py-3.5 active:opacity-80"
         >
           <Text className="font-body-semibold text-sm text-ink">
@@ -59,11 +60,11 @@ export function PantryCard({
           </Text>
         </Pressable>
         <Pressable
-          onPress={onCariResep}
+          onPress={onFindRecipes}
           className="flex-1 flex-row items-center justify-center rounded-xl bg-primary py-3.5 active:bg-primary-dark"
         >
           <Text className="font-body-semibold text-sm text-card">
-            Resep Cocok ({totalResep})
+            Resep Cocok ({totalRecipes})
           </Text>
           <Ionicons
             name="arrow-forward"
