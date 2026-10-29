@@ -3,44 +3,55 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { PantryItemRow } from '@/components/bahan/PantryItemRow';
+import { PantryItemRow } from '@/components/pantry/PantryItemRow';
 import {
-  BAHAN_AWAL,
-  KATEGORI_PANTRY,
-  type KategoriPantry,
-} from '@/data/mock-bahan';
+  CATEGORY_LABELS,
+  INITIAL_PANTRY_ITEMS,
+  PANTRY_CATEGORIES,
+  type PantryCategory,
+} from '@/data/mock-pantry';
 
-type FilterKategori = 'Semua' | KategoriPantry;
+type CategoryFilter = 'all' | PantryCategory;
 
-export default function BahanScreen() {
-  const [items, setItems] = useState(BAHAN_AWAL);
-  const [kataCari, setKataCari] = useState('');
-  const [filter, setFilter] = useState<FilterKategori>('Semua');
+export default function PantryScreen() {
+  const [items, setItems] = useState(INITIAL_PANTRY_ITEMS);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState<CategoryFilter>('all');
 
-  const kata = kataCari.trim().toLowerCase();
-  const tampil = items.filter(
-    (i) =>
-      (filter === 'Semua' || i.kategori === filter) &&
-      `${i.nama} ${i.alias}`.toLowerCase().includes(kata),
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const visibleItems = items.filter(
+    (item) =>
+      (filter === 'all' || item.category === filter) &&
+      `${item.name} ${item.alias}`.toLowerCase().includes(normalizedQuery),
   );
 
-  const ubahJumlah = (id: string, arah: 1 | -1) =>
+  const changeQuantity = (id: string, direction: 1 | -1) =>
     setItems((prev) =>
-      prev.map((i) =>
-        i.id === id
-          ? { ...i, jumlah: Math.max(i.langkah, i.jumlah + arah * i.langkah) }
-          : i,
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: Math.max(
+                item.step,
+                item.quantity + direction * item.step,
+              ),
+            }
+          : item,
       ),
     );
 
-  const hapus = (id: string) =>
-    setItems((prev) => prev.filter((i) => i.id !== id));
+  const removeItem = (id: string) =>
+    setItems((prev) => prev.filter((item) => item.id !== id));
 
-  const totalResep = 14;
+  const totalRecipes = 14;
 
-  const filters: FilterKategori[] = ['Semua', ...KATEGORI_PANTRY];
-  const hitung = (f: FilterKategori) =>
-    f === 'Semua' ? items.length : items.filter((i) => i.kategori === f).length;
+  const filters: CategoryFilter[] = ['all', ...PANTRY_CATEGORIES];
+  const labelFor = (f: CategoryFilter) =>
+    f === 'all' ? 'Semua' : CATEGORY_LABELS[f];
+  const countFor = (f: CategoryFilter) =>
+    f === 'all'
+      ? items.length
+      : items.filter((item) => item.category === f).length;
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
@@ -87,6 +98,7 @@ export default function BahanScreen() {
             </Text>
           </View>
 
+          {/* Ringkasan */}
           <View className="flex-row gap-3">
             <View className="flex-1 rounded-2xl bg-card p-4">
               <View className="flex-row items-center justify-between">
@@ -118,22 +130,21 @@ export default function BahanScreen() {
               </View>
               <Text className="mt-2 font-body text-xs text-pebble">
                 <Text className="font-heading text-3xl text-ink">
-                  {totalResep}{' '}
+                  {totalRecipes}{' '}
                 </Text>
                 siap masak
               </Text>
             </View>
           </View>
 
-          {/* Pencarian */}
           <View className="h-14 flex-row items-center rounded-2xl border border-oatmeal bg-card px-4">
             <Ionicons name="search" size={20} color="#383831" />
             <TextInput
               className="ml-3 flex-1 font-body text-sm text-ink"
               placeholder="Cari bahan, misalnya kentang atau potato"
               placeholderTextColor="#77766D"
-              value={kataCari}
-              onChangeText={setKataCari}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
             />
           </View>
 
@@ -156,17 +167,17 @@ export default function BahanScreen() {
             contentContainerClassName="gap-2"
           >
             {filters.map((f) => {
-              const aktif = f === filter;
+              const isActive = f === filter;
               return (
                 <Pressable
                   key={f}
                   onPress={() => setFilter(f)}
-                  className={`rounded-full border px-4 py-2.5 ${aktif ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
+                  className={`rounded-full border px-4 py-2.5 ${isActive ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
                 >
                   <Text
-                    className={`font-body-semibold text-sm ${aktif ? 'text-card' : 'text-ink'}`}
+                    className={`font-body-semibold text-sm ${isActive ? 'text-card' : 'text-ink'}`}
                   >
-                    {f} ({hitung(f)})
+                    {labelFor(f)} ({countFor(f)})
                   </Text>
                 </Pressable>
               );
@@ -174,17 +185,19 @@ export default function BahanScreen() {
           </ScrollView>
 
           <View className="gap-3">
-            {tampil.length === 0 ? (
+            {visibleItems.length === 0 ? (
               <Text className="py-8 text-center font-body text-sm text-pebble">
                 Bahan tidak ditemukan.
               </Text>
             ) : (
-              tampil.map((item) => (
+              visibleItems.map((item) => (
                 <PantryItemRow
                   key={item.id}
                   item={item}
-                  onUbahJumlah={(arah) => ubahJumlah(item.id, arah)}
-                  onHapus={() => hapus(item.id)}
+                  onChangeQuantity={(direction) =>
+                    changeQuantity(item.id, direction)
+                  }
+                  onRemove={() => removeItem(item.id)}
                 />
               ))
             )}
@@ -232,7 +245,7 @@ export default function BahanScreen() {
               </Text>
               menghasilkan{' '}
               <Text className="font-body-semibold">
-                {totalResep} resep cocok
+                {totalRecipes} resep cocok
               </Text>
             </Text>
             <Text className="ml-3 font-body text-xs text-pebble">
@@ -241,7 +254,7 @@ export default function BahanScreen() {
           </View>
           <Pressable className="flex-row items-center justify-center rounded-xl bg-primary py-4 active:bg-primary-dark">
             <Text className="font-body-semibold text-sm text-card">
-              Lihat Resep yang Cocok ({totalResep})
+              Lihat Resep yang Cocok ({totalRecipes})
             </Text>
             <Ionicons
               name="arrow-forward"

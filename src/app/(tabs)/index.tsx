@@ -3,17 +3,17 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { PantryCard } from '@/components/beranda/PantryCard';
-import { RecipeMatchCard } from '@/components/beranda/RecipeMatchCard';
+import { PantryCard } from '@/components/home/PantryCard';
+import { RecipeMatchCard } from '@/components/home/RecipeMatchCard';
 import {
-  KATEGORI_MASAKAN,
-  PANTRY,
-  POPULER,
-  RESEP_COCOK,
-} from '@/data/mock-beranda';
+  COOKING_CATEGORIES,
+  MATCHED_RECIPES,
+  PANTRY_ITEMS,
+  POPULAR_RECIPES,
+} from '@/data/mock-home';
 
-export default function BerandaScreen() {
-  const [kategoriAktif, setKategoriAktif] = useState(KATEGORI_MASAKAN[0]);
+export default function HomeScreen() {
+  const [activeCategory, setActiveCategory] = useState(COOKING_CATEGORIES[0]);
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
@@ -22,6 +22,9 @@ export default function BerandaScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View>
+          <Text className="font-body text-xs text-pebble">
+            Halo, Nisa! 👋 • Dapur Aktif
+          </Text>
           <Text className="mt-2 font-heading text-[28px] leading-9 text-primary">
             Apa yang ingin kamu masak hari ini?
           </Text>
@@ -42,9 +45,16 @@ export default function BerandaScreen() {
               <Ionicons name="options-outline" size={18} color="#FAF8F3" />
             </Pressable>
           </View>
+          <View className="rounded-xl bg-oatmeal px-4 py-3">
+            <Text className="font-body text-xs text-ink">
+              <Text className="font-body-semibold">Kamus Cerdas: </Text>
+              Mendukung nama Indonesia & Inggris (contoh: garlic → Bawang putih,
+              egg → Telur).
+            </Text>
+          </View>
         </View>
 
-        <PantryCard items={PANTRY} totalResep={12} />
+        <PantryCard items={PANTRY_ITEMS} totalRecipes={12} />
 
         <View>
           <View className="mb-3 flex-row items-end justify-between">
@@ -60,18 +70,18 @@ export default function BerandaScreen() {
             showsHorizontalScrollIndicator={false}
             contentContainerClassName="gap-2"
           >
-            {KATEGORI_MASAKAN.map((k) => {
-              const aktif = k === kategoriAktif;
+            {COOKING_CATEGORIES.map((category) => {
+              const isActive = category === activeCategory;
               return (
                 <Pressable
-                  key={k}
-                  onPress={() => setKategoriAktif(k)}
-                  className={`rounded-full border px-4 py-2.5 ${aktif ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
+                  key={category}
+                  onPress={() => setActiveCategory(category)}
+                  className={`rounded-full border px-4 py-2.5 ${isActive ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
                 >
                   <Text
-                    className={`font-body-semibold text-sm ${aktif ? 'text-card' : 'text-ink'}`}
+                    className={`font-body-semibold text-sm ${isActive ? 'text-card' : 'text-ink'}`}
                   >
-                    {k}
+                    {category}
                   </Text>
                 </Pressable>
               );
@@ -93,8 +103,8 @@ export default function BerandaScreen() {
               Lihat Semua ›
             </Text>
           </View>
-          {RESEP_COCOK.map((r) => (
-            <RecipeMatchCard key={r.id} resep={r} />
+          {MATCHED_RECIPES.map((recipe) => (
+            <RecipeMatchCard key={recipe.id} recipe={recipe} />
           ))}
         </View>
 
@@ -110,27 +120,27 @@ export default function BerandaScreen() {
             showsHorizontalScrollIndicator={false}
             contentContainerClassName="gap-3"
           >
-            {POPULER.map((p) => (
+            {POPULAR_RECIPES.map((recipe) => (
               <View
-                key={p.id}
+                key={recipe.id}
                 className="w-64 overflow-hidden rounded-2xl border border-oatmeal bg-card"
               >
                 <View className="h-32 bg-primary-dark">
                   <View className="absolute bottom-2 left-2 rounded-full bg-terracotta px-3 py-1">
                     <Text className="font-body-semibold text-xs text-card">
-                      {p.tag}
+                      {recipe.tag}
                     </Text>
                   </View>
                 </View>
                 <View className="p-4">
                   <Text className="font-heading-md text-xl text-ink">
-                    {p.judul}
+                    {recipe.title}
                   </Text>
                   <Text className="mt-1 font-body text-xs text-pebble">
-                    {p.info}
+                    {recipe.info}
                   </Text>
                   <Text className="mt-3 font-body-semibold text-xs text-primary">
-                    {p.bahan}
+                    {recipe.ingredientMatch}
                   </Text>
                 </View>
               </View>
