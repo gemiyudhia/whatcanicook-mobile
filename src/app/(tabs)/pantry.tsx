@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '@/components/AppHeader';
 import { PantryItemRow } from '@/components/pantry/PantryItemRow';
 import {
   CATEGORY_LABELS,
@@ -60,24 +61,7 @@ export default function PantryScreen() {
           contentContainerClassName="gap-5 px-5 pb-48 pt-2"
           showsVerticalScrollIndicator={false}
         >
-          <View className="flex-row items-center">
-            <View className="h-10 w-10 items-center justify-center rounded-lg border border-oatmeal bg-card">
-              <Text className="text-lg">🍳</Text>
-            </View>
-            <View className="ml-3 flex-1">
-              <Text className="font-heading text-xl text-ink">
-                WhatCanICook
-              </Text>
-              <Text className="font-body text-xs text-pebble">Bahan Saya</Text>
-            </View>
-            <Ionicons name="search" size={22} color="#383831" />
-            <Ionicons
-              name="notifications-outline"
-              size={22}
-              color="#383831"
-              style={{ marginLeft: 20 }}
-            />
-          </View>
+          <AppHeader subtitle="Bahan Saya" />
 
           <View>
             <View className="flex-row items-center justify-between">
