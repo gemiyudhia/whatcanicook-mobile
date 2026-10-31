@@ -17,6 +17,9 @@ module.exports = {
         terracotta: '#B87556',
         ink: '#383831',
         pebble: '#77766D',
+        'sage-light': '#DAE3C8',
+        danger: '#BA1A1A',
+        'danger-light': '#FFDAD6',
       },
       fontFamily: {
         heading: ['Newsreader_600SemiBold'],
