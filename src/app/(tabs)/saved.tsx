@@ -13,6 +13,7 @@ import {
   type SavedCategory,
 } from '@/data/mock-saved';
 import { isFullyMatched } from '@/lib/recipe-match';
+import { router } from 'expo-router';
 
 type CategoryFilter = 'all' | SavedCategory;
 
@@ -150,6 +151,12 @@ export default function SavedScreen() {
                 key={recipe.id}
                 recipe={recipe}
                 onUnsave={() => unsave(recipe.id)}
+                onPress={() =>
+                  router.push({
+                    pathname: '/recipe/[id]',
+                    params: { id: recipe.id },
+                  })
+                }
               />
             ))
           )}
