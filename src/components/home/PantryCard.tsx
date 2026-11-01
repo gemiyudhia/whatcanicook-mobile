@@ -28,17 +28,13 @@ export function PantryCard({
             {items.length} bahan aktif di wadah dapurmu
           </Text>
         </View>
-        <View
-          className="rounded-full px-3 py-1"
-          style={{ backgroundColor: '#DAE3C8' }}
-        >
+        <View className="rounded-full bg-sage-light px-3 py-1">
           <Text className="font-body-semibold text-xs text-primary">
             Siap Pakai
           </Text>
         </View>
       </View>
 
-      {/* flex-wrap: chip turun ke baris berikutnya kalau tidak muat */}
       <View className="mt-4 flex-row flex-wrap gap-2">
         {items.map((item) => (
           <View

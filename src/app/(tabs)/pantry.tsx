@@ -4,6 +4,7 @@ import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
+import { FilterChips } from '@/components/FilterChips';
 import { PantryItemRow } from '@/components/pantry/PantryItemRow';
 import {
   CATEGORY_LABELS,
@@ -53,6 +54,10 @@ export default function PantryScreen() {
     f === 'all'
       ? items.length
       : items.filter((item) => item.category === f).length;
+  const filterOptions = filters.map((f) => ({
+    value: f,
+    label: `${labelFor(f)} (${countFor(f)})`,
+  }));
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
@@ -68,10 +73,7 @@ export default function PantryScreen() {
               <Text className="font-heading text-[28px] text-primary">
                 Bahan Saya
               </Text>
-              <View
-                className="rounded-full px-3 py-1"
-                style={{ backgroundColor: '#DAE3C8' }}
-              >
+              <View className="rounded-full bg-sage-light px-3 py-1">
                 <Text className="font-body-semibold text-xs text-primary">
                   ● Sinkron Dapur Aktif
                 </Text>
@@ -82,7 +84,6 @@ export default function PantryScreen() {
             </Text>
           </View>
 
-          {/* Ringkasan */}
           <View className="flex-row gap-3">
             <View className="flex-1 rounded-2xl bg-card p-4">
               <View className="flex-row items-center justify-between">
@@ -102,10 +103,7 @@ export default function PantryScreen() {
                 bahan tersedia
               </Text>
             </View>
-            <View
-              className="flex-1 rounded-2xl p-4"
-              style={{ backgroundColor: '#DAE3C8' }}
-            >
+            <View className="flex-1 rounded-2xl bg-sage-light p-4">
               <View className="flex-row items-center justify-between">
                 <Text className="font-body-medium text-sm text-ink">
                   Potensi Menu
@@ -145,28 +143,11 @@ export default function PantryScreen() {
             </Pressable>
           </View>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerClassName="gap-2"
-          >
-            {filters.map((f) => {
-              const isActive = f === filter;
-              return (
-                <Pressable
-                  key={f}
-                  onPress={() => setFilter(f)}
-                  className={`rounded-full border px-4 py-2.5 ${isActive ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
-                >
-                  <Text
-                    className={`font-body-semibold text-sm ${isActive ? 'text-card' : 'text-ink'}`}
-                  >
-                    {labelFor(f)} ({countFor(f)})
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
+          <FilterChips
+            options={filterOptions}
+            selected={filter}
+            onSelect={setFilter}
+          />
 
           <View className="gap-3">
             {visibleItems.length === 0 ? (
@@ -188,10 +169,7 @@ export default function PantryScreen() {
           </View>
 
           <View className="flex-row rounded-2xl bg-card p-4">
-            <View
-              className="h-9 w-9 items-center justify-center rounded-full"
-              style={{ backgroundColor: '#DAE3C8' }}
-            >
+            <View className="h-9 w-9 items-center justify-center rounded-full bg-sage-light">
               <Ionicons name="bulb-outline" size={18} color="#34483A" />
             </View>
             <View className="ml-3 flex-1">
