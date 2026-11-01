@@ -4,6 +4,7 @@ import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
+import { FilterChips } from '@/components/FilterChips';
 import { SavedRecipeCard } from '@/components/saved/SavedRecipeCard';
 import {
   INITIAL_SAVED_RECIPES,
@@ -37,6 +38,10 @@ export default function SavedScreen() {
     f === 'all'
       ? recipes.length
       : recipes.filter((recipe) => recipe.category === f).length;
+  const filterOptions = filters.map((f) => ({
+    value: f,
+    label: `${labelFor(f)} (${countFor(f)})`,
+  }));
 
   const unsave = (id: string) =>
     setRecipes((prev) => prev.filter((recipe) => recipe.id !== id));
@@ -75,33 +80,13 @@ export default function SavedScreen() {
           <Ionicons name="options-outline" size={20} color="#383831" />
         </View>
 
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerClassName="gap-2"
-        >
-          {filters.map((f) => {
-            const isActive = f === filter;
-            return (
-              <Pressable
-                key={f}
-                onPress={() => setFilter(f)}
-                className={`rounded-full border px-4 py-2.5 ${isActive ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
-              >
-                <Text
-                  className={`font-body-semibold text-sm ${isActive ? 'text-card' : 'text-ink'}`}
-                >
-                  {labelFor(f)} ({countFor(f)})
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
+        <FilterChips
+          options={filterOptions}
+          selected={filter}
+          onSelect={setFilter}
+        />
 
-        <View
-          className="rounded-2xl p-4"
-          style={{ backgroundColor: '#DAE3C8' }}
-        >
+        <View className="rounded-2xl bg-sage-light p-4">
           <View className="flex-row items-start">
             <View className="h-10 w-10 items-center justify-center rounded-full bg-primary">
               <Ionicons name="sparkles" size={18} color="#FAF8F3" />

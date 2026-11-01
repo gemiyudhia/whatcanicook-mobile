@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FilterChips } from '@/components/FilterChips';
 import { PantryCard } from '@/components/home/PantryCard';
 import { RecipeMatchCard } from '@/components/home/RecipeMatchCard';
 import {
@@ -65,28 +66,14 @@ export default function HomeScreen() {
               Geser untuk melihat
             </Text>
           </View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerClassName="gap-2"
-          >
-            {COOKING_CATEGORIES.map((category) => {
-              const isActive = category === activeCategory;
-              return (
-                <Pressable
-                  key={category}
-                  onPress={() => setActiveCategory(category)}
-                  className={`rounded-full border px-4 py-2.5 ${isActive ? 'border-primary bg-primary' : 'border-oatmeal bg-card'}`}
-                >
-                  <Text
-                    className={`font-body-semibold text-sm ${isActive ? 'text-card' : 'text-ink'}`}
-                  >
-                    {category}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
+          <FilterChips
+            options={COOKING_CATEGORIES.map((category) => ({
+              value: category,
+              label: category,
+            }))}
+            selected={activeCategory}
+            onSelect={setActiveCategory}
+          />
         </View>
 
         <View className="gap-4">
