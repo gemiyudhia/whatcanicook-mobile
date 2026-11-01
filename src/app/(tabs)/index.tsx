@@ -12,6 +12,7 @@ import {
   PANTRY_ITEMS,
   POPULAR_RECIPES,
 } from '@/data/mock-home';
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState(COOKING_CATEGORIES[0]);
@@ -91,7 +92,16 @@ export default function HomeScreen() {
             </Text>
           </View>
           {MATCHED_RECIPES.map((recipe) => (
-            <RecipeMatchCard key={recipe.id} recipe={recipe} />
+            <RecipeMatchCard
+              key={recipe.id}
+              recipe={recipe}
+              onPress={() =>
+                router.push({
+                  pathname: '/recipe/[id]',
+                  params: { id: recipe.id },
+                })
+              }
+            />
           ))}
         </View>
 

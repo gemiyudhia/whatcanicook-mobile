@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react-native';
 
 import HomeScreen from '../src/app/(tabs)/index';
 
+jest.mock('expo-router', () => ({ router: { push: jest.fn() } }));
+
 describe('HomeScreen', () => {
   it('shows the greeting and the tagline', async () => {
     await render(<HomeScreen />);

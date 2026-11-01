@@ -26,7 +26,7 @@ export type SavedRecipe = {
 
 export const INITIAL_SAVED_RECIPES: SavedRecipe[] = [
   {
-    id: '1',
+    id: '2',
     title: 'Ayam Kecap Mentega Rumahan',
     category: 'daily',
     duration: '35 mnt',
@@ -37,7 +37,7 @@ export const INITIAL_SAVED_RECIPES: SavedRecipe[] = [
     missing: 'Daging Ayam',
   },
   {
-    id: '2',
+    id: '1',
     title: 'Tumis Kangkung Tempe Gurih',
     category: 'daily',
     duration: '15 mnt',

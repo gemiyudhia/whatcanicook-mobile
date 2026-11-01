@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import SavedScreen from '../src/app/(tabs)/saved';
 
+jest.mock('expo-router', () => ({ router: { push: jest.fn() } }));
+
 describe('SavedScreen', () => {
   it('lists the saved recipes', async () => {
     await render(<SavedScreen />);
