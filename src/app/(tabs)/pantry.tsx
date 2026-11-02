@@ -10,53 +10,30 @@ import {
   CATEGORY_LABELS,
   INITIAL_PANTRY_ITEMS,
   PANTRY_CATEGORIES,
-  type PantryCategory,
 } from '@/data/mock-pantry';
-
-type CategoryFilter = 'all' | PantryCategory;
+import {
+  changeItemQuantity,
+  countPantryItems,
+  filterPantryItems,
+  PantryCategoryFilter,
+} from '@/lib/pantry';
 
 export default function PantryScreen() {
   const [items, setItems] = useState(INITIAL_PANTRY_ITEMS);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState<CategoryFilter>('all');
+  const [filter, setFilter] = useState<PantryCategoryFilter>('all');
 
-  const normalizedQuery = searchQuery.trim().toLowerCase();
-  const visibleItems = items.filter(
-    (item) =>
-      (filter === 'all' || item.category === filter) &&
-      `${item.name} ${item.alias}`.toLowerCase().includes(normalizedQuery),
-  );
-
-  const changeQuantity = (id: string, direction: 1 | -1) =>
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity: Math.max(
-                item.step,
-                item.quantity + direction * item.step,
-              ),
-            }
-          : item,
-      ),
-    );
-
+  const visibleItems = filterPantryItems(items, filter, searchQuery);
   const removeItem = (id: string) =>
     setItems((prev) => prev.filter((item) => item.id !== id));
 
   const totalRecipes = 14;
 
-  const filters: CategoryFilter[] = ['all', ...PANTRY_CATEGORIES];
-  const labelFor = (f: CategoryFilter) =>
-    f === 'all' ? 'Semua' : CATEGORY_LABELS[f];
-  const countFor = (f: CategoryFilter) =>
-    f === 'all'
-      ? items.length
-      : items.filter((item) => item.category === f).length;
-  const filterOptions = filters.map((f) => ({
-    value: f,
-    label: `${labelFor(f)} (${countFor(f)})`,
+  const filterOptions = (
+    ['all', ...PANTRY_CATEGORIES] as PantryCategoryFilter[]
+  ).map((value) => ({
+    value,
+    label: `${value === 'all' ? 'Semua' : CATEGORY_LABELS[value]} (${countPantryItems(items, value)})`,
   }));
 
   return (
@@ -160,7 +137,9 @@ export default function PantryScreen() {
                   key={item.id}
                   item={item}
                   onChangeQuantity={(direction) =>
-                    changeQuantity(item.id, direction)
+                    setItems((prev) =>
+                      changeItemQuantity(prev, item.id, direction),
+                    )
                   }
                   onRemove={() => removeItem(item.id)}
                 />
