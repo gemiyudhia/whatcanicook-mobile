@@ -10,42 +10,36 @@ import {
   INITIAL_SAVED_RECIPES,
   SAVED_CATEGORIES,
   SAVED_CATEGORY_LABELS,
-  type SavedCategory,
 } from '@/data/mock-saved';
-import { isFullyMatched } from '@/lib/recipe-match';
+import {
+  countReadyRecipes,
+  countSavedRecipes,
+  filterSavedRecipes,
+  SavedCategoryFilter,
+} from '@/lib/saved-recipes';
 import { router } from 'expo-router';
-
-type CategoryFilter = 'all' | SavedCategory;
 
 export default function SavedScreen() {
   const [recipes, setRecipes] = useState(INITIAL_SAVED_RECIPES);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState<CategoryFilter>('all');
+  const [filter, setFilter] = useState<SavedCategoryFilter>('all');
   const [readyOnly, setReadyOnly] = useState(false);
 
-  const normalizedQuery = searchQuery.trim().toLowerCase();
-  const visibleRecipes = recipes.filter(
-    (recipe) =>
-      (filter === 'all' || recipe.category === filter) &&
-      (!readyOnly || isFullyMatched(recipe)) &&
-      recipe.title.toLowerCase().includes(normalizedQuery),
-  );
-
-  const readyCount = recipes.filter(isFullyMatched).length;
-  const filters: CategoryFilter[] = ['all', ...SAVED_CATEGORIES];
-  const labelFor = (f: CategoryFilter) =>
-    f === 'all' ? 'Semua' : SAVED_CATEGORY_LABELS[f];
-  const countFor = (f: CategoryFilter) =>
-    f === 'all'
-      ? recipes.length
-      : recipes.filter((recipe) => recipe.category === f).length;
-  const filterOptions = filters.map((f) => ({
-    value: f,
-    label: `${labelFor(f)} (${countFor(f)})`,
-  }));
-
+  const visibleRecipes = filterSavedRecipes(recipes, {
+    category: filter,
+    query: searchQuery,
+    readyOnly,
+  });
+  const readyCount = countReadyRecipes(recipes);
   const unsave = (id: string) =>
     setRecipes((prev) => prev.filter((recipe) => recipe.id !== id));
+
+  const filterOptions = (
+    ['all', ...SAVED_CATEGORIES] as SavedCategoryFilter[]
+  ).map((value) => ({
+    value,
+    label: `${value === 'all' ? 'Semua' : SAVED_CATEGORY_LABELS[value]} (${countSavedRecipes(recipes, value)})`,
+  }));
 
   return (
     <SafeAreaView className="flex-1 bg-canvas" edges={['top']}>
