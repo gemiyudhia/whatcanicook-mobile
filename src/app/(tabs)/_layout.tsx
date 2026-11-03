@@ -63,6 +63,8 @@ export default function TabsLayout() {
           tabBarIcon: tabIcon('person', 'person-outline'),
         }}
       />
+
+      <Tabs.Screen name="matches" options={{ href: null }} />
     </Tabs>
   );
 }

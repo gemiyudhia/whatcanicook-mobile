@@ -56,7 +56,11 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <PantryCard items={PANTRY_ITEMS} totalRecipes={12} />
+        <PantryCard
+          items={PANTRY_ITEMS}
+          totalRecipes={12}
+          onFindRecipes={() => router.push('/matches')}
+        />
 
         <View>
           <View className="mb-3 flex-row items-end justify-between">
