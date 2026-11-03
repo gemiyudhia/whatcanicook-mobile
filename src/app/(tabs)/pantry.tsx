@@ -17,6 +17,7 @@ import {
   filterPantryItems,
   PantryCategoryFilter,
 } from '@/lib/pantry';
+import { router } from 'expo-router';
 
 export default function PantryScreen() {
   const [items, setItems] = useState(INITIAL_PANTRY_ITEMS);
@@ -193,7 +194,10 @@ export default function PantryScreen() {
               100% Siap
             </Text>
           </View>
-          <Pressable className="flex-row items-center justify-center rounded-xl bg-primary py-4 active:bg-primary-dark">
+          <Pressable
+            onPress={() => router.push('/matches')}
+            className="flex-row items-center justify-center rounded-xl bg-primary py-4 active:bg-primary-dark"
+          >
             <Text className="font-body-semibold text-sm text-card">
               Lihat Resep yang Cocok ({totalRecipes})
             </Text>
