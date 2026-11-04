@@ -14,6 +14,7 @@ import {
   SETTINGS_ITEMS,
 } from '@/data/mock-profile';
 import { getInitials } from '@/lib/get-initials';
+import { router } from 'expo-router';
 
 export default function ProfileScreen() {
   const [avoidedIngredients, setAvoidedIngredients] = useState(
@@ -200,7 +201,10 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        <Pressable className="flex-row items-center justify-center rounded-2xl bg-oatmeal py-4 active:opacity-80">
+        <Pressable
+          onPress={() => router.replace('/login')}
+          className="flex-row items-center justify-center rounded-2xl bg-oatmeal py-4 active:opacity-80"
+        >
           <Ionicons name="log-out-outline" size={18} color="#BA1A1A" />
           <Text className="ml-2 font-body-semibold text-base text-danger">
             Keluar dari Akun

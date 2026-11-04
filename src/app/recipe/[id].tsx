@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,11 +7,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { IngredientRow } from '@/components/recipe/IngredientRow';
 import { StepCard } from '@/components/recipe/StepCard';
 import { getRecipeDetail } from '@/data/mock-recipe-detail';
+import { goBack } from '@/lib/navigation';
 
 const MIN_SERVINGS = 1;
 const MAX_SERVINGS = 12;
-
-const goBack = () => (router.canGoBack() ? router.back() : router.replace('/'));
 
 export default function RecipeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

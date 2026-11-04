@@ -4,6 +4,8 @@ import PantryScreen from '../src/app/(tabs)/pantry';
 
 const SEARCH_PLACEHOLDER = 'Cari bahan, misalnya kentang atau potato';
 
+jest.mock('expo-router', () => ({ router: { replace: jest.fn() } }));
+
 describe('PantryScreen', () => {
   it('finds an ingredient by its English name', async () => {
     await render(<PantryScreen />);
