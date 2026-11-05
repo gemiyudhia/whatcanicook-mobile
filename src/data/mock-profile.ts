@@ -24,30 +24,3 @@ export type SettingsItem = {
   title: string;
   subtitle: string;
 };
-
-export const SETTINGS_ITEMS: SettingsItem[] = [
-  {
-    id: 'pantry-notifications',
-    icon: 'file-tray-outline',
-    title: 'Wadah Dapur & Notifikasi Kedaluwarsa',
-    subtitle: 'Peringatan 2 hari sebelum bahan basi',
-  },
-  {
-    id: 'shopping-list',
-    icon: 'checkbox-outline',
-    title: 'Daftar Belanjaan Otomatis',
-    subtitle: 'Kumpulkan bumbu yang belum tersedia',
-  },
-  {
-    id: 'help-center',
-    icon: 'book-outline',
-    title: 'Pusat Bantuan & Panduan Memasak',
-    subtitle: 'Tips substitusi bumbu & takaran',
-  },
-  {
-    id: 'about',
-    icon: 'information-circle-outline',
-    title: 'Tentang WhatCanICook',
-    subtitle: 'Versi 2.4.0 (Build Stabil)',
-  },
-];

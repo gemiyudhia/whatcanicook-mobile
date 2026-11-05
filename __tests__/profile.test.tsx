@@ -24,11 +24,4 @@ describe('ProfileScreen', () => {
     expect(screen.queryByText('Kacang Tanah')).not.toBeOnTheScreen();
     expect(screen.getByText('1 Pantangan')).toBeOnTheScreen();
   });
-
-  it('lists the app settings', async () => {
-    await render(<ProfileScreen />);
-
-    expect(screen.getByText('Daftar Belanjaan Otomatis')).toBeOnTheScreen();
-    expect(screen.getByText('Tentang WhatCanICook')).toBeOnTheScreen();
-  });
 });

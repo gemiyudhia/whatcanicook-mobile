@@ -6,18 +6,16 @@ export type SavedCategoryFilter = 'all' | SavedCategory;
 type Filters = {
   category: SavedCategoryFilter;
   query: string;
-  readyOnly: boolean;
 };
 
 export function filterSavedRecipes(
   recipes: SavedRecipe[],
-  { category, query, readyOnly }: Filters,
+  { category, query }: Filters,
 ) {
   const normalizedQuery = query.trim().toLowerCase();
   return recipes.filter(
     (recipe) =>
       (category === 'all' || recipe.category === category) &&
-      (!readyOnly || isFullyMatched(recipe)) &&
       recipe.title.toLowerCase().includes(normalizedQuery),
   );
 }

@@ -27,12 +27,6 @@ export function MatchResultCard({
 }: Props) {
   const isComplete = isFullyMatched(match);
   const missingCount = match.totalCount - match.matchedCount;
-  const missingNames = match.missingIngredients
-    .map((item) => item.name)
-    .join(', ');
-  const missingWithAmount = match.missingIngredients
-    .map((item) => `${item.name} (${item.amount})`)
-    .join(', ');
 
   return (
     <View className="overflow-hidden rounded-2xl border border-oatmeal bg-card">
@@ -45,25 +39,6 @@ export function MatchResultCard({
           />
         )}
         <View className="absolute h-full w-full bg-black/25" />
-
-        <View className="absolute left-3 right-16 top-3 flex-row">
-          <View className="flex-shrink flex-row items-center rounded-full bg-card/90 px-3 py-1.5">
-            <Ionicons
-              name={
-                isComplete ? 'checkmark-circle-outline' : 'alert-circle-outline'
-              }
-              size={14}
-              color={isComplete ? '#34483A' : '#BA1A1A'}
-            />
-            <Text
-              className={`ml-1 flex-shrink font-body-semibold text-xs ${isComplete ? 'text-primary' : 'text-danger'}`}
-            >
-              {isComplete
-                ? '100% Cocok • Semua Bahan Ada'
-                : `Kurang ${missingCount} Bahan: ${missingNames}`}
-            </Text>
-          </View>
-        </View>
 
         <Pressable
           onPress={onToggleSave}
@@ -133,18 +108,6 @@ export function MatchResultCard({
               </View>
             ))}
           </View>
-
-          {!isComplete && (
-            <View className="mt-3 flex-row items-center rounded-lg bg-danger-light px-3 py-2">
-              <Ionicons name="bag-handle-outline" size={14} color="#BA1A1A" />
-              <Text className="ml-2 flex-1 font-body-medium text-xs text-danger">
-                Perlu Beli: {missingWithAmount}
-              </Text>
-              <Text className="ml-2 font-body-semibold text-xs text-danger">
-                + Belanja
-              </Text>
-            </View>
-          )}
         </View>
 
         <View className="mt-3 flex-row items-center gap-2">
@@ -173,12 +136,6 @@ export function MatchResultCard({
             </>
           ) : (
             <>
-              <Pressable className="h-12 flex-1 flex-row items-center justify-center rounded-xl bg-oatmeal active:opacity-80">
-                <Ionicons name="cart-outline" size={18} color="#383831" />
-                <Text className="ml-2 font-body-semibold text-sm text-ink">
-                  Tambah Bahan Kurang
-                </Text>
-              </Pressable>
               <Pressable
                 onPress={onOpen}
                 className="h-12 flex-row items-center justify-center rounded-xl bg-oatmeal px-4 active:opacity-80"

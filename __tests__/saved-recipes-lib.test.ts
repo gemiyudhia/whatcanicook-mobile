@@ -50,15 +50,6 @@ describe('filterSavedRecipes', () => {
 
     expect(result.map((recipe) => recipe.id)).toEqual(['3']);
   });
-
-  it('keeps only fully matched recipes when readyOnly is on', () => {
-    const result = filterSavedRecipes(recipes, {
-      ...noFilters,
-      readyOnly: true,
-    });
-
-    expect(result.map((recipe) => recipe.id)).toEqual(['2']);
-  });
 });
 
 describe('counting helpers', () => {

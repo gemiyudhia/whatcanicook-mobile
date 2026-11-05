@@ -51,11 +51,6 @@ export default function PantryScreen() {
               <Text className="font-heading text-[28px] text-primary">
                 Bahan Saya
               </Text>
-              <View className="rounded-full bg-sage-light px-3 py-1">
-                <Text className="font-body-semibold text-xs text-primary">
-                  ● Sinkron Dapur Aktif
-                </Text>
-              </View>
             </View>
             <Text className="mt-2 font-body text-base text-pebble">
               Kelola stok bahan dapurmu untuk rekomendasi resep paling akurat.
@@ -81,20 +76,6 @@ export default function PantryScreen() {
                 bahan tersedia
               </Text>
             </View>
-            <View className="flex-1 rounded-2xl bg-sage-light p-4">
-              <View className="flex-row items-center justify-between">
-                <Text className="font-body-medium text-sm text-ink">
-                  Potensi Menu
-                </Text>
-                <Ionicons name="book-outline" size={18} color="#34483A" />
-              </View>
-              <Text className="mt-2 font-body text-xs text-pebble">
-                <Text className="font-heading text-3xl text-ink">
-                  {totalRecipes}{' '}
-                </Text>
-                siap masak
-              </Text>
-            </View>
           </View>
 
           <View className="h-14 flex-row items-center rounded-2xl border border-oatmeal bg-card px-4">
@@ -108,11 +89,7 @@ export default function PantryScreen() {
             />
           </View>
 
-          <View className="flex-row items-center justify-between">
-            <Text className="mr-3 flex-1 font-body text-xs text-pebble">
-              💡 Ketik nama bahan dalam Bahasa Indonesia atau Inggris (contoh:
-              garlic, potato, egg, cabe).
-            </Text>
+          <View className="flex-row items-center justify-end">
             <Pressable className="flex-row items-center active:opacity-70">
               <Ionicons name="add-circle-outline" size={18} color="#383831" />
               <Text className="ml-1 font-body-semibold text-sm text-ink">
@@ -146,27 +123,6 @@ export default function PantryScreen() {
                 />
               ))
             )}
-          </View>
-
-          <View className="flex-row rounded-2xl bg-card p-4">
-            <View className="h-9 w-9 items-center justify-center rounded-full bg-sage-light">
-              <Ionicons name="bulb-outline" size={18} color="#34483A" />
-            </View>
-            <View className="ml-3 flex-1">
-              <Text className="font-heading-md text-base text-ink">
-                Tips Dapur Pintar
-              </Text>
-              <Text className="mt-1 font-body text-xs leading-5 text-pebble">
-                Kombinasi{' '}
-                <Text className="font-body-semibold text-ink">
-                  kangkung, tempe, bawang putih,
-                </Text>{' '}
-                dan{' '}
-                <Text className="font-body-semibold text-ink">cabai merah</Text>{' '}
-                dapat diolah menjadi hidangan klasik Tumis Kangkung Tempe Gurih
-                dalam 15 menit.
-              </Text>
-            </View>
           </View>
         </ScrollView>
 

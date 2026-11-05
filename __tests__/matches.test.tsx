@@ -14,9 +14,6 @@ describe('MatchesScreen', () => {
     expect(
       screen.getByText('Sambal Goreng Kentang Ati Gurih'),
     ).toBeOnTheScreen();
-    expect(
-      screen.getByText('Perlu Beli: Hati Sapi / Ampela (200g)'),
-    ).toBeOnTheScreen();
   });
 
   it('filters to ready-to-cook recipes', async () => {

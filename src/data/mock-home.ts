@@ -60,28 +60,3 @@ export const MATCHED_RECIPES: MatchedRecipe[] = [
     ingredients: 'Kecap Manis, Bawang Putih, Cabai.',
   },
 ];
-
-export type PopularRecipe = {
-  id: string;
-  title: string;
-  tag: string;
-  info: string;
-  ingredientMatch: string;
-};
-
-export const POPULAR_RECIPES: PopularRecipe[] = [
-  {
-    id: 'p1',
-    title: 'Sambal Goreng Kentang',
-    tag: 'Populer',
-    info: '35 mnt • Rasa pedas gurih legit',
-    ingredientMatch: '4/6 Bahan cocok',
-  },
-  {
-    id: 'p2',
-    title: 'Tahu Telur Bumbu Kacang',
-    tag: 'Tradisional',
-    info: '20 mnt • Khas Jawa',
-    ingredientMatch: '3/5 Bahan cocok',
-  },
-];

@@ -23,19 +23,6 @@ describe('SavedScreen', () => {
     ).not.toBeOnTheScreen();
   });
 
-  it('shows only ready-to-cook recipes and can switch back', async () => {
-    await render(<SavedScreen />);
-
-    await fireEvent.press(screen.getByText('Tampilkan yang Siap Masak'));
-    expect(screen.getByText('Tumis Kangkung Tempe Gurih')).toBeOnTheScreen();
-    expect(
-      screen.queryByText('Ayam Kecap Mentega Rumahan'),
-    ).not.toBeOnTheScreen();
-
-    await fireEvent.press(screen.getByText('Tampilkan Semua'));
-    expect(screen.getByText('Ayam Kecap Mentega Rumahan')).toBeOnTheScreen();
-  });
-
   it('searches by title', async () => {
     await render(<SavedScreen />);
 
