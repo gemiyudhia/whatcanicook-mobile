@@ -228,20 +228,6 @@ export default function RecipeDetailScreen() {
               />
             ))}
           </View>
-
-          <View className="flex-row rounded-2xl bg-sage-light p-4">
-            <View className="h-10 w-10 items-center justify-center rounded-full bg-primary">
-              <Ionicons name="bulb-outline" size={18} color="#FAF8F3" />
-            </View>
-            <View className="ml-3 flex-1">
-              <Text className="font-body-semibold text-base text-ink">
-                {recipe.tip.title}
-              </Text>
-              <Text className="mt-1 font-body text-xs leading-5 text-ink">
-                {recipe.tip.body}
-              </Text>
-            </View>
-          </View>
         </ScrollView>
 
         <View className="absolute bottom-0 left-0 right-0 px-5 pb-4">

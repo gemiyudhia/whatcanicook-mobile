@@ -106,29 +106,6 @@ export function SavedRecipeCard({ recipe, image, onUnsave, onPress }: Props) {
             />
           </View>
         </View>
-
-        <View className="mt-3 flex-row items-center gap-2">
-          <Pressable className="flex-row items-center rounded-xl bg-oatmeal px-3 py-2.5 active:opacity-80">
-            <Ionicons name="calendar-outline" size={16} color="#383831" />
-            <Text className="ml-1.5 font-body-medium text-xs text-ink">
-              Jadwalkan
-            </Text>
-          </Pressable>
-          <Pressable className="flex-row items-center rounded-xl bg-oatmeal px-3 py-2.5 active:opacity-80">
-            <Ionicons name="share-social-outline" size={16} color="#383831" />
-            <Text className="ml-1.5 font-body-medium text-xs text-ink">
-              Bagikan
-            </Text>
-          </Pressable>
-          <View className="flex-1" />
-          <Pressable
-            onPress={onPress}
-            accessibilityLabel={`Buka ${recipe.title}`}
-            className="h-11 w-11 items-center justify-center rounded-xl bg-primary active:bg-primary-dark"
-          >
-            <Ionicons name="arrow-forward" size={18} color="#FAF8F3" />
-          </Pressable>
-        </View>
       </Pressable>
     </View>
   );

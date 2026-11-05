@@ -25,12 +25,7 @@ export function PantryCard({
             Pantry Tersedia
           </Text>
           <Text className="font-body text-xs text-pebble">
-            {items.length} bahan aktif di wadah dapurmu
-          </Text>
-        </View>
-        <View className="rounded-full bg-sage-light px-3 py-1">
-          <Text className="font-body-semibold text-xs text-primary">
-            Siap Pakai
+            {items.length} bahan di dapurmu
           </Text>
         </View>
       </View>

@@ -1,17 +1,15 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { Pressable, ScrollView, Switch, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
 import { SectionHeader } from '@/components/profile/SectionHeader';
-import { SettingsRow } from '@/components/profile/SettingsRow';
 import {
   COOKING_DEFAULTS,
   INITIAL_AVOIDED_INGREDIENTS,
   INITIAL_TASTE_TAGS,
   MOCK_USER,
-  SETTINGS_ITEMS,
 } from '@/data/mock-profile';
 import { getInitials } from '@/lib/get-initials';
 import { router } from 'expo-router';
@@ -20,7 +18,6 @@ export default function ProfileScreen() {
   const [avoidedIngredients, setAvoidedIngredients] = useState(
     INITIAL_AVOIDED_INGREDIENTS,
   );
-  const [isBilingualSearch, setIsBilingualSearch] = useState(true);
 
   const removeAvoided = (name: string) =>
     setAvoidedIngredients((prev) => prev.filter((item) => item !== name));
@@ -53,9 +50,6 @@ export default function ProfileScreen() {
           <Text className="mt-4 font-heading text-3xl text-primary">
             {MOCK_USER.name}
           </Text>
-          <Text className="mt-1 font-body text-sm text-pebble">
-            {MOCK_USER.role} • Bergabung sejak {MOCK_USER.joinedAt}
-          </Text>
         </View>
 
         <View className="flex-row gap-3">
@@ -72,20 +66,6 @@ export default function ProfileScreen() {
               </Text>
             </View>
           ))}
-        </View>
-
-        <View className="flex-row items-center rounded-2xl bg-sage-light p-4">
-          <View className="h-11 w-11 items-center justify-center rounded-full bg-primary">
-            <Ionicons name="sparkles" size={18} color="#FAF8F3" />
-          </View>
-          <View className="ml-3 flex-1">
-            <Text className="font-body-semibold text-sm text-ink">
-              Rekomendasi Pintar Aktif
-            </Text>
-            <Text className="mt-0.5 font-body text-xs text-pebble">
-              Resep disaring otomatis sesuai pantangan bahan.
-            </Text>
-          </View>
         </View>
 
         <View className="gap-3">
@@ -172,32 +152,6 @@ export default function ProfileScreen() {
                 </View>
               ))}
             </View>
-            <View className="mt-4 flex-row items-center">
-              <View className="mr-4 flex-1">
-                <Text className="font-body-semibold text-sm text-ink">
-                  Pencarian Dwibahasa
-                </Text>
-                <Text className="mt-0.5 font-body text-xs text-pebble">
-                  Mendukung alias Inggris (potato, garlic, chili, dsb.)
-                </Text>
-              </View>
-              <Switch
-                value={isBilingualSearch}
-                onValueChange={setIsBilingualSearch}
-                accessibilityLabel="Pencarian Dwibahasa"
-                trackColor={{ false: '#E7DED0', true: '#34483A' }}
-                thumbColor="#FAF8F3"
-              />
-            </View>
-          </View>
-        </View>
-
-        <View className="gap-3">
-          <SectionHeader icon="settings-outline" title="Pengaturan Aplikasi" />
-          <View className="overflow-hidden rounded-2xl border border-oatmeal bg-card">
-            {SETTINGS_ITEMS.map((item, index) => (
-              <SettingsRow key={item.id} item={item} showDivider={index > 0} />
-            ))}
           </View>
         </View>
 

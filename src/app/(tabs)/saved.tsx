@@ -12,7 +12,6 @@ import {
   SAVED_CATEGORY_LABELS,
 } from '@/data/mock-saved';
 import {
-  countReadyRecipes,
   countSavedRecipes,
   filterSavedRecipes,
   SavedCategoryFilter,
@@ -23,14 +22,11 @@ export default function SavedScreen() {
   const [recipes, setRecipes] = useState(INITIAL_SAVED_RECIPES);
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState<SavedCategoryFilter>('all');
-  const [readyOnly, setReadyOnly] = useState(false);
 
   const visibleRecipes = filterSavedRecipes(recipes, {
     category: filter,
     query: searchQuery,
-    readyOnly,
   });
-  const readyCount = countReadyRecipes(recipes);
   const unsave = (id: string) =>
     setRecipes((prev) => prev.filter((recipe) => recipe.id !== id));
 
@@ -81,37 +77,6 @@ export default function SavedScreen() {
           onSelect={setFilter}
         />
 
-        <View className="rounded-2xl bg-sage-light p-4">
-          <View className="flex-row items-start">
-            <View className="h-10 w-10 items-center justify-center rounded-full bg-primary">
-              <Ionicons name="sparkles" size={18} color="#FAF8F3" />
-            </View>
-            <View className="ml-3 flex-1">
-              <Text className="font-body-semibold text-xs tracking-wide text-ink">
-                KECOCOKAN DAPUR
-              </Text>
-              <Text className="mt-1 font-body text-sm text-ink">
-                {readyCount} dari {recipes.length} resep tersimpan bisa langsung
-                kamu masak dengan bahan di dapur saat ini!
-              </Text>
-            </View>
-          </View>
-          <View className="mt-3 flex-row items-center">
-            <Pressable
-              onPress={() => setReadyOnly((value) => !value)}
-              className="flex-1 flex-row items-center justify-center rounded-xl bg-primary py-3.5 active:bg-primary-dark"
-            >
-              <Ionicons name="restaurant" size={16} color="#FAF8F3" />
-              <Text className="ml-2 font-body-semibold text-sm text-card">
-                {readyOnly ? 'Tampilkan Semua' : 'Tampilkan yang Siap Masak'}
-              </Text>
-            </Pressable>
-            <Text className="ml-3 w-24 font-body text-xs text-pebble">
-              Sinkronisasi 5m lalu
-            </Text>
-          </View>
-        </View>
-
         <View className="flex-row items-center justify-between">
           <View>
             <Text className="font-heading-md text-lg text-ink">
@@ -155,21 +120,6 @@ export default function SavedScreen() {
             ))
           )}
         </View>
-
-        <Pressable className="flex-row items-center rounded-2xl bg-card p-4 active:opacity-80">
-          <View className="h-10 w-10 items-center justify-center rounded-xl bg-oatmeal">
-            <Ionicons name="document-text-outline" size={18} color="#34483A" />
-          </View>
-          <View className="ml-3 flex-1">
-            <Text className="font-heading-md text-base text-ink">
-              Tambah Catatan atau Koleksi Baru
-            </Text>
-            <Text className="font-body text-xs text-pebble">
-              Atur daftar resep sesuai acara atau rencana mingguan
-            </Text>
-          </View>
-          <Ionicons name="add" size={20} color="#383831" />
-        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );

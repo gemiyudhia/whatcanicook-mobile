@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppHeader } from '@/components/AppHeader';
 import { FilterChips } from '@/components/FilterChips';
 import { PantryCard } from '@/components/home/PantryCard';
 import { RecipeMatchCard } from '@/components/home/RecipeMatchCard';
@@ -10,7 +11,6 @@ import {
   COOKING_CATEGORIES,
   MATCHED_RECIPES,
   PANTRY_ITEMS,
-  POPULAR_RECIPES,
 } from '@/data/mock-home';
 import { router } from 'expo-router';
 
@@ -23,10 +23,9 @@ export default function HomeScreen() {
         contentContainerClassName="gap-6 px-5 pb-8 pt-4"
         showsVerticalScrollIndicator={false}
       >
+        <AppHeader subtitle="Beranda" />
+
         <View>
-          <Text className="font-body text-xs text-pebble">
-            Halo, Nisa! 👋 • Dapur Aktif
-          </Text>
           <Text className="mt-2 font-heading text-[28px] leading-9 text-primary">
             Apa yang ingin kamu masak hari ini?
           </Text>
@@ -47,13 +46,6 @@ export default function HomeScreen() {
               <Ionicons name="options-outline" size={18} color="#FAF8F3" />
             </Pressable>
           </View>
-          <View className="rounded-xl bg-oatmeal px-4 py-3">
-            <Text className="font-body text-xs text-ink">
-              <Text className="font-body-semibold">Kamus Cerdas: </Text>
-              Mendukung nama Indonesia & Inggris (contoh: garlic → Bawang putih,
-              egg → Telur).
-            </Text>
-          </View>
         </View>
 
         <PantryCard
@@ -66,9 +58,6 @@ export default function HomeScreen() {
           <View className="mb-3 flex-row items-end justify-between">
             <Text className="font-heading-md text-xl text-ink">
               Kategori Masakan
-            </Text>
-            <Text className="font-body text-xs text-pebble">
-              Geser untuk melihat
             </Text>
           </View>
           <FilterChips
@@ -107,46 +96,6 @@ export default function HomeScreen() {
               }
             />
           ))}
-        </View>
-
-        <View>
-          <Text className="font-heading-md text-2xl text-ink">
-            Inspirasi Populer
-          </Text>
-          <Text className="mb-3 font-body text-xs text-pebble">
-            Hidangan nusantara paling banyak dimasak pekan ini
-          </Text>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerClassName="gap-3"
-          >
-            {POPULAR_RECIPES.map((recipe) => (
-              <View
-                key={recipe.id}
-                className="w-64 overflow-hidden rounded-2xl border border-oatmeal bg-card"
-              >
-                <View className="h-32 bg-primary-dark">
-                  <View className="absolute bottom-2 left-2 rounded-full bg-terracotta px-3 py-1">
-                    <Text className="font-body-semibold text-xs text-card">
-                      {recipe.tag}
-                    </Text>
-                  </View>
-                </View>
-                <View className="p-4">
-                  <Text className="font-heading-md text-xl text-ink">
-                    {recipe.title}
-                  </Text>
-                  <Text className="mt-1 font-body text-xs text-pebble">
-                    {recipe.info}
-                  </Text>
-                  <Text className="mt-3 font-body-semibold text-xs text-primary">
-                    {recipe.ingredientMatch}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>

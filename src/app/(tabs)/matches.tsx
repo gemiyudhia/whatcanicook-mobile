@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, ScrollView, Switch, Text, View } from 'react-native';
+import { ScrollView, Switch, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppHeader } from '@/components/AppHeader';
@@ -57,22 +57,6 @@ export default function MatchesScreen() {
         showsVerticalScrollIndicator={false}
       >
         <AppHeader subtitle="Resep Yang Cocok" />
-
-        <View className="flex-row items-center gap-3">
-          <View className="flex-1 flex-row items-center rounded-xl bg-sage-light px-3 py-3">
-            <Ionicons name="file-tray-full-outline" size={16} color="#59614C" />
-            <Text className="ml-2 flex-1 font-body-semibold text-[11px] tracking-wider text-pebble">
-              PANTRY CERDAS AKTIF
-            </Text>
-          </View>
-          <Pressable className="flex-1 flex-row items-center rounded-xl border border-oatmeal bg-card px-3 py-3">
-            <Ionicons name="swap-vertical" size={16} color="#383831" />
-            <Text className="ml-2 flex-1 font-body-semibold text-xs text-ink">
-              Kecocokan Tertinggi
-            </Text>
-            <Ionicons name="chevron-down" size={14} color="#383831" />
-          </Pressable>
-        </View>
 
         <View>
           <Text className="font-heading text-[28px] text-primary">
@@ -142,28 +126,6 @@ export default function MatchesScreen() {
               />
             ))
           )}
-        </View>
-
-        <View className="flex-row items-center rounded-2xl bg-sage-light p-4">
-          <View className="h-11 w-11 items-center justify-center rounded-full bg-card/70">
-            <Ionicons name="add-circle-outline" size={22} color="#383831" />
-          </View>
-          <View className="ml-3 flex-1">
-            <Text className="font-body-semibold text-sm text-ink">
-              Punya sisa bahan lain?
-            </Text>
-            <Text className="mt-0.5 font-body text-xs text-pebble">
-              Tambah 1 atau 2 bumbu untuk opsi resep lebih banyak.
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => router.push('/pantry')}
-            className="ml-2 rounded-xl bg-primary px-4 py-3 active:bg-primary-dark"
-          >
-            <Text className="font-body-semibold text-xs text-card">
-              + Bahan
-            </Text>
-          </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>

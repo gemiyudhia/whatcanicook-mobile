@@ -27,7 +27,6 @@ export type RecipeDetail = {
   matchText: string;
   ingredients: RecipeIngredient[];
   steps: RecipeStep[];
-  tip: { title: string; body: string };
 };
 
 const RECIPE_DETAILS: Record<string, RecipeDetail> = {
@@ -134,10 +133,6 @@ const RECIPE_DETAILS: Record<string, RecipeDetail> = {
           'Masak dengan api besar selama 2–3 menit hingga kangkung layu namun tetap berwarna hijau terang dan bertekstur renyah. Angkat segera dan sajikan selagi panas.',
       },
     ],
-    tip: {
-      title: 'Kunci Kerenyahan Kangkung',
-      body: 'Kunci kangkung tetap hijau cerah dan bertekstur renyah adalah menumis dengan api besar dalam durasi sangat singkat (maksimal 3 menit). Jangan biarkan terlalu lama di atas wajan panas setelah api dimatikan.',
-    },
   },
 };
 
